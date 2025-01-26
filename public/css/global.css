@@ -1,0 +1,55 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #111827;
+  font-family: sans-serif;
+}
+
+h1,
+h2,
+p,
+li,
+a,
+label,
+input,
+textarea,
+button {
+  color: #d1d5db;
+}
+
+input,
+textarea,
+button {
+  font-family: inherit;
+  font-size: 16px;
+}
+
+a {
+  text-decoration: none;
+}
+
+li {
+  list-style: none;
+}
+
+button {
+  cursor: pointer;
+}
+
+header {
+  display: flex;
+  flex-direction: column;
+}
+
+header nav ul {
+  display: flex;
+  gap: 10px;
+}
+
+footer {
+  display: flex;
+}
