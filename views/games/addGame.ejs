@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Games: Add Game</title>
+    <link rel="stylesheet" href="/css/global.css" />
+    <link rel="stylesheet" href="/css/games/add-game.css" />
+  </head>
+  <body>
+    <%- include('../partials/header.ejs') %>
+
+    <main>
+      <h2>Game Details</h2>
+
+      <form action="/games/add-game" method="POST">
+        <section class="form-group">
+          <label for="name">Name</label>
+          <input
+            type="text"
+            name="name"
+            id="name"
+            required
+            placeholder="Enter name"
+          />
+        </section>
+
+        <section class="form-group">
+          <label for="developer">Developer</label>
+          <select name="developer" id="developer">
+            <option value="" disabled selected>Select Developer</option>
+            <% developers.forEach((developer) => { %>
+            <option value="<%= developer.name %>"><%= developer.name %></option>
+            <% }); %>
+          </select>
+        </section>
+
+        <section class="form-group">
+          <label for="genre">Genre</label>
+          <select name="genre" id="genre">
+            <option value="" disabled selected>Select Genre</option>
+            <% genres.forEach((genre) => { %>
+            <option value="<%= genre.name %>"><%= genre.name %></option>
+            <% }); %>
+          </select>
+        </section>
+
+        <section class="form-group">
+          <label for="stock">Stock</label>
+          <input
+            type="number"
+            name="stock"
+            id="stock"
+            min="0"
+            required
+            placeholder="Enter stock"
+          />
+        </section>
+
+        <section class="button-group">
+          <a href="/games">Back</a>
+          <button type="submit">+ Game</button>
+        </section>
+      </form>
+    </main>
+
+    <%- include('../partials/footer.ejs') %>
+  </body>
+</html>

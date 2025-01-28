@@ -1,8 +1,15 @@
 import { Router } from "express";
-import { getGames } from "../controllers/gamesController.js";
+import {
+  getIndex,
+  getAddGame,
+  postAddGame,
+} from "../controllers/gamesController.js";
 
 const gamesRouter = Router();
 
-gamesRouter.get("/", getGames);
+gamesRouter.get("/", getIndex);
+gamesRouter.get("/add-game", getAddGame);
+
+gamesRouter.post("/add-game", postAddGame);
 
 export default gamesRouter;
