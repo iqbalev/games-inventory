@@ -1,14 +1,13 @@
 import { Router } from "express";
 import {
-  getIndex,
   getAddDeveloper,
+  getIndex,
   postAddDeveloper,
 } from "../controllers/developersController.js";
 
 const developersRouter = Router();
-
-developersRouter.get("/", getIndex);
 developersRouter.get("/add-developer", getAddDeveloper);
+developersRouter.get("/", getIndex);
 
 developersRouter.post("/add-developer", postAddDeveloper);
 

@@ -1,14 +1,13 @@
 import { Router } from "express";
 import {
-  getIndex,
   getAddGenre,
+  getIndex,
   postAddGenre,
 } from "../controllers/genresController.js";
 
 const genresRouter = Router();
-
-genresRouter.get("/", getIndex);
 genresRouter.get("/add-genre", getAddGenre);
+genresRouter.get("/", getIndex);
 
 genresRouter.post("/add-genre", postAddGenre);
 
