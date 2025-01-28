@@ -1,19 +1,20 @@
+import asyncHandler from "express-async-handler";
 import { fetchAllDevelopers, insertDeveloper } from "../database/queries.js";
 
-export async function getIndex(req, res) {
+export const getIndex = asyncHandler(async (req, res) => {
   const developers = await fetchAllDevelopers();
   res.render("developers/index", { heading: "Developers", developers });
-}
+});
 
-export async function getAddDeveloper(req, res) {
+export const getAddDeveloper = asyncHandler(async (req, res) => {
   const developers = await fetchAllDevelopers();
   res.render("developers/addDeveloper", { developers });
-}
+});
 
-export async function postAddDeveloper(req, res) {
+export const postAddDeveloper = asyncHandler(async (req, res) => {
   const { name } = req.body;
 
   await insertDeveloper(name);
   console.log("Developer Added:", name);
   return res.redirect("/developers/add-developer");
-}
+});

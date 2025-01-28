@@ -1,3 +1,4 @@
+import asyncHandler from "express-async-handler";
 import {
   fetchAllDevelopers,
   fetchAllGenres,
@@ -11,18 +12,18 @@ import {
   insertGameGenres,
 } from "../database/queries.js";
 
-export async function getIndex(req, res) {
+export const getIndex = asyncHandler(async (req, res) => {
   const games = await fetchAllGames();
   res.render("games/index", { heading: "Games", games });
-}
+});
 
-export async function getAddGame(req, res) {
+export const getAddGame = asyncHandler(async (req, res) => {
   const developers = await fetchAllDevelopers();
   const genres = await fetchAllGenres();
   res.render("games/addGame", { developers, genres });
-}
+});
 
-export async function postAddGame(req, res) {
+export const postAddGame = asyncHandler(async (req, res) => {
   const { name, developer, genre, stock } = req.body;
 
   const gameId = await insertGame(name, stock);
@@ -43,4 +44,4 @@ export async function postAddGame(req, res) {
 
   console.log(`Game Added: ${name} | ${developer} | ${genre} | ${stock}`);
   return res.redirect("/games/add-game");
-}
+});

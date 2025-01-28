@@ -5,6 +5,7 @@ import indexRouter from "./routes/indexRouter.js";
 import gamesRouter from "./routes/gamesRouter.js";
 import developersRouter from "./routes/developersRouter.js";
 import genresRouter from "./routes/genresRouter.js";
+import NotFoundError from "./middlewares/customError.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -22,6 +23,18 @@ app.use("/", indexRouter);
 app.use("/games", gamesRouter);
 app.use("/developers", developersRouter);
 app.use("/genres", genresRouter);
+
+app.use((req, res, next) => {
+  next(new NotFoundError("Page Not Found"));
+});
+
+app.use((err, req, res, next) => {
+  const statusCode = err.statusCode || 500;
+  const errorMessage =
+    statusCode === 404 ? err.message : "Internal Server Error";
+
+  res.status(statusCode).render("error", { errorMessage });
+});
 
 const PORT = 8080;
 const server = app.listen(PORT, () => {
