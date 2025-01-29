@@ -1,17 +1,30 @@
 main {
   display: flex;
-  flex-direction: column;
   gap: 20px;
 }
 
-section a {
-  background-color: transparent;
+.sidebar {
+  display: flex;
+  flex-direction: column;
+}
+
+.add-link {
   border: 1px solid #6b7280;
   padding: 12px;
   text-align: center;
 }
 
-section a:hover {
+.add-link:hover {
   color: #93c5fd;
   border-color: #93c5fd;
+}
+
+.genre-games {
+  display: flex;
+  flex-direction: column;
+}
+
+.game-card {
+  display: flex;
+  flex-direction: column;
 }

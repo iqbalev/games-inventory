@@ -7,6 +7,7 @@ import {
 
 const developersRouter = Router();
 developersRouter.get("/add-developer", getAddDeveloper);
+developersRouter.get("/:developerId", getIndex);
 developersRouter.get("/", getIndex);
 
 developersRouter.post("/add-developer", postAddDeveloper);

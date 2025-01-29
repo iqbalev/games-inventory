@@ -1,9 +1,18 @@
 import asyncHandler from "express-async-handler";
-import { fetchAllGenres, insertGenre } from "../database/queries.js";
+import {
+  fetchAllGenres,
+  fetchGamesByGenre,
+  insertGenre,
+} from "../database/queries.js";
 
 export const getIndex = asyncHandler(async (req, res) => {
   const genres = await fetchAllGenres();
-  res.render("genres/index", { heading: "Genres", genres });
+
+  const { genreId } = req.params;
+
+  const genreGames = await fetchGamesByGenre(genreId);
+  console.log(genreGames);
+  res.render("genres/index", { heading: "Genres", genres, genreGames });
 });
 
 export const getAddGenre = asyncHandler(async (req, res) => {

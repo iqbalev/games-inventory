@@ -1,9 +1,22 @@
 import asyncHandler from "express-async-handler";
-import { fetchAllDevelopers, insertDeveloper } from "../database/queries.js";
+import {
+  fetchAllDevelopers,
+  fetchGamesByDeveloper,
+  insertDeveloper,
+} from "../database/queries.js";
 
 export const getIndex = asyncHandler(async (req, res) => {
   const developers = await fetchAllDevelopers();
-  res.render("developers/index", { heading: "Developers", developers });
+
+  const { developerId } = req.params;
+
+  const developerGames = await fetchGamesByDeveloper(developerId);
+  console.log(developerGames);
+  res.render("developers/index", {
+    heading: "Developers",
+    developers,
+    developerGames,
+  });
 });
 
 export const getAddDeveloper = asyncHandler(async (req, res) => {

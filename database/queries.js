@@ -55,6 +55,54 @@ export async function fetchGenreIdByName(name) {
   return null;
 }
 
+export async function fetchGamesByDeveloper(developer_id) {
+  const { rows } = await pool.query(
+    `
+    SELECT
+      games.id,
+      games.name,
+      games.stock,
+      ARRAY_AGG(DISTINCT developers.name) AS developer_names,
+      ARRAY_AGG(DISTINCT genres.name) AS genre_names
+    FROM games
+    JOIN game_developers ON games.id = game_developers.game_id
+    JOIN developers ON game_developers.developer_id = developers.id
+    JOIN game_genres ON games.id = game_genres.game_id
+    JOIN genres ON game_genres.genre_id = genres.id
+    WHERE developers.id = $1
+    GROUP BY games.id
+    ORDER BY games.name ASC
+  `,
+    [developer_id]
+  );
+
+  return rows;
+}
+
+export async function fetchGamesByGenre(genre_id) {
+  const { rows } = await pool.query(
+    `
+    SELECT
+      games.id,
+      games.name,
+      games.stock,
+      ARRAY_AGG(DISTINCT developers.name) AS developer_names,
+      ARRAY_AGG(DISTINCT genres.name) AS genre_names
+    FROM games
+    JOIN game_developers ON games.id = game_developers.game_id
+    JOIN developers ON game_developers.developer_id = developers.id
+    JOIN game_genres ON games.id = game_genres.game_id
+    JOIN genres ON game_genres.genre_id = genres.id
+    WHERE genres.id = $1
+    GROUP BY games.id
+    ORDER BY games.name ASC
+  `,
+    [genre_id]
+  );
+
+  return rows;
+}
+
 export async function insertDeveloper(name) {
   const { rows } = await pool.query(
     "INSERT INTO developers (name) VALUES ($1) RETURNING id",

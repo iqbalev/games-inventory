@@ -11,16 +11,24 @@
     <%- include('../partials/header.ejs') %>
 
     <main>
-      <h2><%= heading %></h2>
+      <aside class="sidebar">
+        <h2><%= heading %></h2>
+        <ul class="developer-list">
+          <% developers.forEach((developer) => { %>
+          <li>
+            <a href="/developers/<%= developer.id %>"><%= developer.name %></a>
+          </li>
+          <% }); %>
+        </ul>
+        <a class="add-link" href="/developers/add-developer">+ Developer</a>
+      </aside>
 
-      <section>
-        <a href="/developers/add-developer">+ Developer</a>
-      </section>
-
-      <section>
-        <% developers.forEach((developer) => { %>
-        <article>
-          <p><%= developer.name %></p>
+      <section class="developer-games">
+        <% developerGames.forEach((game) => { %>
+        <article class="game-card">
+          <p><%= game.name %></p>
+          <p>Genre: <%= game.genre_names %></p>
+          <p>Stock: <%= game.stock %></p>
         </article>
         <% }); %>
       </section>

@@ -7,6 +7,7 @@ import {
 
 const genresRouter = Router();
 genresRouter.get("/add-genre", getAddGenre);
+genresRouter.get("/:genreId", getIndex);
 genresRouter.get("/", getIndex);
 
 genresRouter.post("/add-genre", postAddGenre);

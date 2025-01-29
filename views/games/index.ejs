@@ -21,9 +21,9 @@
         <% games.forEach((game) => { %>
         <article class="game-information">
           <p><%= game.name %></p>
-          <p><%= game.developer_names.join(", ") %></p>
-          <p><%= game.genre_names.join(", ") %></p>
-          <p><%= game.stock %></p>
+          <p>Developer: <%= game.developer_names %></p>
+          <p>Genre: <%= game.genre_names %></p>
+          <p>Stock: <%= game.stock %></p>
         </article>
         <% }); %>
       </section>

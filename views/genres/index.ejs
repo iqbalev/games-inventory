@@ -11,16 +11,24 @@
     <%- include('../partials/header.ejs') %>
 
     <main>
-      <h2><%= heading %></h2>
+      <aside class="sidebar">
+        <h2><%= heading %></h2>
+        <ul class="genre-list">
+          <% genres.forEach((genre) => { %>
+          <li>
+            <a href="/genres/<%= genre.id %>"><%= genre.name %></a>
+          </li>
+          <% }); %>
+        </ul>
+        <a class="add-link" href="/genres/add-genre">+ Genre</a>
+      </aside>
 
-      <section>
-        <a href="/genres/add-genre">+ Genre</a>
-      </section>
-
-      <section>
-        <% genres.forEach((genre) => { %>
-        <article>
-          <p><%= genre.name %></p>
+      <section class="genre-games">
+        <% genreGames.forEach((game) => { %>
+        <article class="game-card">
+          <p><%= game.name %></p>
+          <p>Developer: <%= game.developer_names %></p>
+          <p>Stock: <%= game.stock %></p>
         </article>
         <% }); %>
       </section>
