@@ -103,6 +103,21 @@ export async function fetchGamesByGenre(genre_id) {
   return rows;
 }
 
+export async function fetchTotalDevelopers() {
+  const { rows } = await pool.query("SELECT COUNT(*) FROM developers");
+  return rows[0].count;
+}
+
+export async function fetchTotalGenres() {
+  const { rows } = await pool.query("SELECT COUNT(*) FROM genres");
+  return rows[0].count;
+}
+
+export async function fetchTotalGames() {
+  const { rows } = await pool.query("SELECT COUNT(*) FROM games");
+  return rows[0].count;
+}
+
 export async function insertDeveloper(name) {
   const { rows } = await pool.query(
     "INSERT INTO developers (name) VALUES ($1) RETURNING id",

@@ -6,6 +6,7 @@ import {
 } from "../controllers/gamesController.js";
 
 const gamesRouter = Router();
+
 gamesRouter.get("/add-game", getAddGame);
 gamesRouter.get("/", getIndex);
 

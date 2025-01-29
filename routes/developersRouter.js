@@ -6,6 +6,7 @@ import {
 } from "../controllers/developersController.js";
 
 const developersRouter = Router();
+
 developersRouter.get("/add-developer", getAddDeveloper);
 developersRouter.get("/:developerId", getIndex);
 developersRouter.get("/", getIndex);

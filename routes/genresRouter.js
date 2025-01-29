@@ -6,6 +6,7 @@ import {
 } from "../controllers/genresController.js";
 
 const genresRouter = Router();
+
 genresRouter.get("/add-genre", getAddGenre);
 genresRouter.get("/:genreId", getIndex);
 genresRouter.get("/", getIndex);
