@@ -17,6 +17,9 @@
           <% genres.forEach((genre) => { %>
           <li>
             <a href="/genres/<%= genre.id %>"><%= genre.name %></a>
+            <form action="/genres/<%= genre.id %>?_method=DELETE" method="POST">
+              <button type="submit" class="btn-delete">Delete</button>
+            </form>
           </li>
           <% }); %>
         </ul>

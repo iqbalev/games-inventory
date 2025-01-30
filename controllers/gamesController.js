@@ -10,6 +10,7 @@ import {
   insertGame,
   insertGameDevelopers,
   insertGameGenres,
+  deleteGameById,
 } from "../database/queries.js";
 
 export const getIndex = asyncHandler(async (req, res) => {
@@ -44,4 +45,10 @@ export const postAddGame = asyncHandler(async (req, res) => {
 
   console.log(`Game Added: ${name} | ${developer} | ${genre} | ${stock}`);
   return res.redirect("/games/add-game");
+});
+
+export const deleteGame = asyncHandler(async (req, res) => {
+  const { gameId } = req.params;
+  await deleteGameById(gameId);
+  return res.redirect("/games");
 });

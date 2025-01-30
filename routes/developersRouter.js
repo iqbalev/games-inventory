@@ -3,6 +3,7 @@ import {
   getAddDeveloper,
   getIndex,
   postAddDeveloper,
+  deleteDeveloper,
 } from "../controllers/developersController.js";
 
 const developersRouter = Router();
@@ -12,5 +13,7 @@ developersRouter.get("/:developerId", getIndex);
 developersRouter.get("/", getIndex);
 
 developersRouter.post("/add-developer", postAddDeveloper);
+
+developersRouter.delete("/:developerId", deleteDeveloper);
 
 export default developersRouter;

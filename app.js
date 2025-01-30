@@ -1,6 +1,7 @@
 import { fileURLToPath } from "node:url";
 import path from "node:path";
 import express from "express";
+import methodOverride from "method-override";
 import indexRouter from "./routes/indexRouter.js";
 import gamesRouter from "./routes/gamesRouter.js";
 import developersRouter from "./routes/developersRouter.js";
@@ -18,6 +19,7 @@ app.set("view engine", "ejs");
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "public")));
+app.use(methodOverride("_method"));
 
 app.use("/", indexRouter);
 app.use("/games", gamesRouter);

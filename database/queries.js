@@ -158,3 +158,15 @@ export async function insertGameGenres(game_id, genre_id) {
     [game_id, genre_id]
   );
 }
+
+export async function deleteGameById(game_id) {
+  await pool.query("DELETE FROM games WHERE id = $1", [game_id]);
+}
+
+export async function deleteDeveloperById(developer_id) {
+  await pool.query("DELETE FROM developers WHERE id = $1", [developer_id]);
+}
+
+export async function deleteGenreById(genre_id) {
+  await pool.query("DELETE FROM genres WHERE id = $1", [genre_id]);
+}

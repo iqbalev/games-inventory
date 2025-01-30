@@ -17,6 +17,12 @@
           <% developers.forEach((developer) => { %>
           <li>
             <a href="/developers/<%= developer.id %>"><%= developer.name %></a>
+            <form
+              action="/developers/<%= developer.id %>?_method=DELETE"
+              method="POST"
+            >
+              <button type="submit" class="btn-delete">Delete</button>
+            </form>
           </li>
           <% }); %>
         </ul>

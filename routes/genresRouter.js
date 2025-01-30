@@ -3,6 +3,7 @@ import {
   getAddGenre,
   getIndex,
   postAddGenre,
+  deleteGenre,
 } from "../controllers/genresController.js";
 
 const genresRouter = Router();
@@ -12,5 +13,7 @@ genresRouter.get("/:genreId", getIndex);
 genresRouter.get("/", getIndex);
 
 genresRouter.post("/add-genre", postAddGenre);
+
+genresRouter.delete("/:genreId", deleteGenre);
 
 export default genresRouter;

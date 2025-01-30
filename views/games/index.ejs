@@ -19,12 +19,18 @@
 
       <section class="games-container">
         <% games.forEach((game) => { %>
-        <article class="game-information">
-          <p><%= game.name %></p>
-          <p>Developer: <%= game.developer_names %></p>
-          <p>Genre: <%= game.genre_names %></p>
-          <p>Stock: <%= game.stock %></p>
-        </article>
+        <div>
+          <article class="game-information">
+            <p><%= game.name %></p>
+            <p>Developer: <%= game.developer_names %></p>
+            <p>Genre: <%= game.genre_names %></p>
+            <p>Stock: <%= game.stock %></p>
+          </article>
+
+          <form action="/games/<%= game.id %>?_method=DELETE" method="POST">
+            <button type="submit" class="btn-delete">Delete</button>
+          </form>
+        </div>
         <% }); %>
       </section>
     </main>

@@ -29,3 +29,8 @@ section a:hover {
   padding: 12px;
   width: 400px;
 }
+
+.btn-delete {
+  border: 1px solid #6b7280;
+  padding: 12px;
+}

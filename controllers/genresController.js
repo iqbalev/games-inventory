@@ -3,6 +3,7 @@ import {
   fetchAllGenres,
   fetchGamesByGenre,
   insertGenre,
+  deleteGenreById,
 } from "../database/queries.js";
 
 export const getIndex = asyncHandler(async (req, res) => {
@@ -26,4 +27,10 @@ export const postAddGenre = asyncHandler(async (req, res) => {
   await insertGenre(name);
   console.log("Genre Added:", name);
   return res.redirect("/genres/add-genre");
+});
+
+export const deleteGenre = asyncHandler(async (req, res) => {
+  const { genreId } = req.params;
+  await deleteGenreById(genreId);
+  return res.redirect("/genres");
 });

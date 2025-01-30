@@ -49,6 +49,7 @@ select {
 
 button {
   cursor: pointer;
+  background-color: transparent;
 }
 
 header {
