@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Developers: Edit Developer</title>
+    <link rel="stylesheet" href="/css/global.css" />
+    <link rel="stylesheet" href="/css/developers/edit-developer.css" />
+  </head>
+  <body>
+    <%- include('../partials/header.ejs') %>
+
+    <main>
+      <h2>Edit Developer Details</h2>
+
+      <form
+        action="/developers/<%= developer.id %>/edit-developer?_method=PUT"
+        method="POST"
+      >
+        <section class="form-group">
+          <label for="name">Name</label>
+          <input
+            list="developers"
+            name="name"
+            id="name"
+            value="<%= value %>"
+            required
+            placeholder="Enter developer"
+          />
+        </section>
+
+        <section class="button-group">
+          <a href="/developers">Back</a>
+          <button type="submit">Save</button>
+        </section>
+      </form>
+    </main>
+
+    <%- include('../partials/footer.ejs') %>
+  </body>
+</html>

@@ -1,0 +1,49 @@
+main {
+  display: flex;
+  gap: 20px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100dvh;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+input {
+  width: 400px;
+}
+
+input,
+section a,
+button {
+  background-color: transparent;
+  border: 1px solid #6b7280;
+  padding: 12px;
+}
+
+.button-group {
+  display: flex;
+  gap: 10px;
+}
+
+section a,
+button {
+  flex: 1;
+  text-align: center;
+}
+
+section a:hover,
+button:hover {
+  color: #93c5fd;
+  border-color: #93c5fd;
+}

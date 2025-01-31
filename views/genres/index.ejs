@@ -17,9 +17,17 @@
           <% genres.forEach((genre) => { %>
           <li>
             <a href="/genres/<%= genre.id %>"><%= genre.name %></a>
-            <form action="/genres/<%= genre.id %>?_method=DELETE" method="POST">
-              <button type="submit" class="btn-delete">Delete</button>
-            </form>
+            <div class="genre-actions">
+              <form
+                action="/genres/<%= genre.id %>?_method=DELETE"
+                method="POST"
+              >
+                <button type="submit" class="btn-delete">Delete</button>
+              </form>
+              <a class="edit-link" href="/genres/<%= genre.id %>/edit-genre"
+                >Edit</a
+              >
+            </div>
           </li>
           <% }); %>
         </ul>

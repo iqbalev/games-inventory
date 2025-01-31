@@ -32,6 +32,29 @@ export async function fetchAllGames() {
   return rows;
 }
 
+export async function fetchDeveloperNameById(developer_id) {
+  const { rows } = await pool.query(
+    "SELECT name FROM developers WHERE id = $1",
+    [developer_id]
+  );
+
+  if (rows.length > 0) {
+    return rows[0].name;
+  }
+  return null;
+}
+
+export async function fetchGenreNameById(genre_id) {
+  const { rows } = await pool.query("SELECT name FROM genres WHERE id = $1", [
+    genre_id,
+  ]);
+
+  if (rows.length > 0) {
+    return rows[0].name;
+  }
+  return null;
+}
+
 export async function fetchDeveloperIdByName(name) {
   const { rows } = await pool.query(
     "SELECT id FROM developers WHERE name = $1",
@@ -159,8 +182,18 @@ export async function insertGameGenres(game_id, genre_id) {
   );
 }
 
-export async function deleteGameById(game_id) {
-  await pool.query("DELETE FROM games WHERE id = $1", [game_id]);
+export async function updateDeveloper(name, developer_id) {
+  await pool.query("UPDATE developers SET name = $1 WHERE id = $2", [
+    name,
+    developer_id,
+  ]);
+}
+
+export async function updateGenre(name, genreId) {
+  await pool.query("UPDATE genres SET name = $1 WHERE id = $2", [
+    name,
+    genreId,
+  ]);
 }
 
 export async function deleteDeveloperById(developer_id) {
@@ -169,4 +202,8 @@ export async function deleteDeveloperById(developer_id) {
 
 export async function deleteGenreById(genre_id) {
   await pool.query("DELETE FROM genres WHERE id = $1", [genre_id]);
+}
+
+export async function deleteGameById(game_id) {
+  await pool.query("DELETE FROM games WHERE id = $1", [game_id]);
 }
