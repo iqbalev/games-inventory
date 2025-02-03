@@ -35,13 +35,17 @@
       </aside>
 
       <section class="genre-games">
-        <% genreGames.forEach((game) => { %>
+        <% if(!genreGames || genreGames.length === 0) { %>
+        <article class="game-card">
+          <p>Click on a genre to see the list.</p>
+        </article>
+        <% } else { %> <% genreGames.forEach((game) => { %>
         <article class="game-card">
           <p><%= game.name %></p>
           <p>Developer: <%= game.developer_names %></p>
           <p>Stock: <%= game.stock %></p>
         </article>
-        <% }); %>
+        <% }); %> <% } %>
       </section>
     </main>
 
