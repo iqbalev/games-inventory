@@ -137,7 +137,9 @@ export async function fetchTotalGenres() {
 }
 
 export async function fetchTotalGames() {
-  const { rows } = await pool.query("SELECT COUNT(*) FROM games");
+  const { rows } = await pool.query(
+    "SELECT COUNT(*) FROM games WHERE id IN (SELECT game_id FROM game_developers) AND id IN (SELECT game_id FROM game_genres)"
+  );
   return rows[0].count;
 }
 
