@@ -19,6 +19,26 @@ form {
   gap: 6px;
 }
 
+.label-buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.buttons-container {
+  display: flex;
+}
+
+.buttons-container button {
+  border: 0;
+  padding: initial;
+}
+
+.select-container {
+  display: flex;
+  flex-direction: column;
+}
+
 input {
   width: 400px;
 }

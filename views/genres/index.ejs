@@ -42,7 +42,7 @@
         <% } else { %> <% genreGames.forEach((game) => { %>
         <article class="game-card">
           <p><%= game.name %></p>
-          <p>Developer: <%= game.developer_names %></p>
+          <p>Developer: <%= game.developer_names.join(", ") %></p>
           <p>Stock: <%= game.stock %></p>
         </article>
         <% }); %> <% } %>

@@ -22,8 +22,8 @@
         <div>
           <article class="game-information">
             <p><%= game.name %></p>
-            <p>Developer: <%= game.developer_names %></p>
-            <p>Genre: <%= game.genre_names %></p>
+            <p>Developer: <%= game.developer_names.join(", ") %></p>
+            <p>Genre: <%= game.genre_names.join(", ") %></p>
             <p>Stock: <%= game.stock %></p>
           </article>
 

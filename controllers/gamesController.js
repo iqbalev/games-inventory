@@ -25,25 +25,37 @@ export const getAddGame = asyncHandler(async (req, res) => {
 });
 
 export const postAddGame = asyncHandler(async (req, res) => {
-  const { name, developer, genre, stock } = req.body;
+  const { name, stock } = req.body;
+  let { developer, genre } = req.body;
+
+  developer = Array.isArray(developer) ? developer : [developer];
+  genre = Array.isArray(genre) ? genre : [genre];
 
   const gameId = await insertGame(name, stock);
 
-  let developerId = await fetchDeveloperIdByName(developer);
-  if (!developerId) {
-    developerId = await insertDeveloper(developer);
+  for (const developerNames of developer) {
+    let developerId = await fetchDeveloperIdByName(developerNames);
+    if (!developerId) {
+      developerId = await insertDeveloper(developerNames);
+    }
+
+    await insertGameDevelopers(gameId, developerId);
   }
 
-  await insertGameDevelopers(gameId, developerId);
+  for (const genreNames of genre) {
+    let genreId = await fetchGenreIdByName(genreNames);
+    if (!genreId) {
+      genreId = await insertGenre(genreNames);
+    }
 
-  let genreId = await fetchGenreIdByName(genre);
-  if (!genreId) {
-    genreId = await insertGenre(genre);
+    await insertGameGenres(gameId, genreId);
   }
 
-  await insertGameGenres(gameId, genreId);
-
-  console.log(`Game Added: ${name} | ${developer} | ${genre} | ${stock}`);
+  console.log(
+    `Game Added: ${name} | ${developer.join(", ")} | ${genre.join(
+      ", "
+    )} | ${stock}`
+  );
   return res.redirect("/games/add-game");
 });
 

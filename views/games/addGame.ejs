@@ -26,23 +26,41 @@
         </section>
 
         <section class="form-group">
-          <label for="developer">Developer</label>
-          <select name="developer" id="developer">
-            <option value="" disabled selected>Select Developer</option>
-            <% developers.forEach((developer) => { %>
-            <option value="<%= developer.name %>"><%= developer.name %></option>
-            <% }); %>
-          </select>
+          <div class="label-buttons">
+            <label for="developer">Developer</label>
+            <div class="buttons-container">
+              <button type="button" onclick="addDeveloperSelect()">Add</button>
+            </div>
+          </div>
+
+          <div class="select-container developer">
+            <select name="developer" id="developer">
+              <option value="" disabled selected>Select Developer</option>
+              <% developers.forEach((developer) => { %>
+              <option value="<%= developer.name %>">
+                <%= developer.name %>
+              </option>
+              <% }); %>
+            </select>
+          </div>
         </section>
 
         <section class="form-group">
-          <label for="genre">Genre</label>
-          <select name="genre" id="genre">
-            <option value="" disabled selected>Select Genre</option>
-            <% genres.forEach((genre) => { %>
-            <option value="<%= genre.name %>"><%= genre.name %></option>
-            <% }); %>
-          </select>
+          <div class="label-buttons">
+            <label for="genre">Genre</label>
+            <div class="buttons-container">
+              <button type="button" onclick="addGenreSelect()">Add</button>
+            </div>
+          </div>
+
+          <div class="select-container genre">
+            <select name="genre" id="genre">
+              <option value="" disabled selected>Select Genre</option>
+              <% genres.forEach((genre) => { %>
+              <option value="<%= genre.name %>"><%= genre.name %></option>
+              <% }); %>
+            </select>
+          </div>
         </section>
 
         <section class="form-group">
@@ -65,5 +83,35 @@
     </main>
 
     <%- include('../partials/footer.ejs') %>
+
+    <script>
+      function addDeveloperSelect() {
+        const selectContainer = document.querySelector(
+          ".select-container.developer"
+        );
+        const currentSelect = document.querySelector(
+          ".select-container.developer select"
+        );
+        const newSelect = document.createElement("select");
+
+        newSelect.name = "developer";
+        newSelect.innerHTML = currentSelect.innerHTML;
+        selectContainer.appendChild(newSelect);
+      }
+
+      function addGenreSelect() {
+        const selectContainer = document.querySelector(
+          ".select-container.genre"
+        );
+        const currentSelect = document.querySelector(
+          ".select-container.genre select"
+        );
+        const newSelect = document.createElement("select");
+
+        newSelect.name = "genre";
+        newSelect.innerHTML = currentSelect.innerHTML;
+        selectContainer.appendChild(newSelect);
+      }
+    </script>
   </body>
 </html>

@@ -44,7 +44,7 @@
         <% } else { %> <% developerGames.forEach((game) => { %>
         <article class="game-card">
           <p><%= game.name %></p>
-          <p>Genre: <%= game.genre_names %></p>
+          <p>Genre: <%= game.genre_names.join(", ") %></p>
           <p>Stock: <%= game.stock %></p>
         </article>
         <% }); %> <% } %>
