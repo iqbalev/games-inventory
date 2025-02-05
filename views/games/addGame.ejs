@@ -29,7 +29,7 @@
           <div class="label-buttons">
             <label for="developer">Developer</label>
             <div class="buttons-container">
-              <button type="button" onclick="addDeveloperSelect()">Add</button>
+              <button type="button" class="btn-add developer">Add</button>
             </div>
           </div>
 
@@ -51,7 +51,7 @@
           <div class="label-buttons">
             <label for="genre">Genre</label>
             <div class="buttons-container">
-              <button type="button" onclick="addGenreSelect()">Add</button>
+              <button type="button" class="btn-add genre">Add</button>
             </div>
           </div>
 
@@ -136,6 +136,12 @@
         newSelectWrapper.appendChild(removeButton);
         selectContainer.appendChild(newSelectWrapper);
       }
+
+      const addDeveloperButton = document.querySelector(".btn-add.developer");
+      const addGenreButton = document.querySelector(".btn-add.genre");
+
+      addDeveloperButton.addEventListener("click", addDeveloperSelect);
+      addGenreButton.addEventListener("click", addGenreSelect);
     </script>
   </body>
 </html>
