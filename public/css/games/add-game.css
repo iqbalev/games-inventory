@@ -39,6 +39,22 @@ form {
   flex-direction: column;
 }
 
+.select-wrapper {
+  display: flex;
+}
+
+.select-wrapper:nth-child(1) {
+  flex-direction: column;
+}
+
+.select-wrapper select {
+  flex: 95;
+}
+
+.select-wrapper button {
+  flex: 5;
+}
+
 input {
   width: 400px;
 }

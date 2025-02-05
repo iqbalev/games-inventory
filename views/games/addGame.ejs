@@ -34,14 +34,16 @@
           </div>
 
           <div class="select-container developer">
-            <select name="developer" id="developer">
-              <option value="" disabled selected>Select Developer</option>
-              <% developers.forEach((developer) => { %>
-              <option value="<%= developer.name %>">
-                <%= developer.name %>
-              </option>
-              <% }); %>
-            </select>
+            <div class="select-wrapper">
+              <select name="developer" id="developer">
+                <option value="" disabled selected>Select Developer</option>
+                <% developers.forEach((developer) => { %>
+                <option value="<%= developer.name %>">
+                  <%= developer.name %>
+                </option>
+                <% }); %>
+              </select>
+            </div>
           </div>
         </section>
 
@@ -54,12 +56,14 @@
           </div>
 
           <div class="select-container genre">
-            <select name="genre" id="genre">
-              <option value="" disabled selected>Select Genre</option>
-              <% genres.forEach((genre) => { %>
-              <option value="<%= genre.name %>"><%= genre.name %></option>
-              <% }); %>
-            </select>
+            <div class="select-wrapper">
+              <select name="genre" id="genre">
+                <option value="" disabled selected>Select Genre</option>
+                <% genres.forEach((genre) => { %>
+                <option value="<%= genre.name %>"><%= genre.name %></option>
+                <% }); %>
+              </select>
+            </div>
           </div>
         </section>
 
@@ -89,28 +93,48 @@
         const selectContainer = document.querySelector(
           ".select-container.developer"
         );
-        const currentSelect = document.querySelector(
+        const select = document.querySelector(
           ".select-container.developer select"
         );
+        const newSelectWrapper = document.createElement("div");
         const newSelect = document.createElement("select");
+        const removeButton = document.createElement("button");
 
+        removeButton.type = "button";
+        removeButton.classList.add("btn-remove");
+        removeButton.textContent = "x";
+        removeButton.addEventListener("click", () =>
+          selectContainer.removeChild(newSelectWrapper)
+        );
         newSelect.name = "developer";
-        newSelect.innerHTML = currentSelect.innerHTML;
-        selectContainer.appendChild(newSelect);
+        newSelect.innerHTML = select.innerHTML;
+        newSelectWrapper.classList.add("select-wrapper");
+        newSelectWrapper.appendChild(newSelect);
+        newSelectWrapper.appendChild(removeButton);
+        selectContainer.appendChild(newSelectWrapper);
       }
 
       function addGenreSelect() {
         const selectContainer = document.querySelector(
           ".select-container.genre"
         );
-        const currentSelect = document.querySelector(
-          ".select-container.genre select"
-        );
+        const select = document.querySelector(".select-container.genre select");
+        const newSelectWrapper = document.createElement("div");
         const newSelect = document.createElement("select");
+        const removeButton = document.createElement("button");
 
+        removeButton.type = "button";
+        removeButton.classList.add("btn-remove");
+        removeButton.textContent = "x";
+        removeButton.addEventListener("click", () =>
+          selectContainer.removeChild(newSelectWrapper)
+        );
         newSelect.name = "genre";
-        newSelect.innerHTML = currentSelect.innerHTML;
-        selectContainer.appendChild(newSelect);
+        newSelect.innerHTML = select.innerHTML;
+        newSelectWrapper.classList.add("select-wrapper");
+        newSelectWrapper.appendChild(newSelect);
+        newSelectWrapper.appendChild(removeButton);
+        selectContainer.appendChild(newSelectWrapper);
       }
     </script>
   </body>
