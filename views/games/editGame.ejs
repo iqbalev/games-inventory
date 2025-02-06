@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Games: Edit Game</title>
+    <link rel="stylesheet" href="/css/global.css" />
+    <link rel="stylesheet" href="/css/games/edit-game.css" />
+  </head>
+  <body>
+    <%- include('../partials/header.ejs') %>
+
+    <main>
+      <h2>Edit Game</h2>
+
+      <form action="/games/<%= game.id %>/edit-game?_method=PUT" method="POST">
+        <section class="form-group">
+          <label for="name">Name</label>
+          <input
+            type="text"
+            name="name"
+            id="name"
+            value="<%= gameValue %>"
+            required
+            placeholder="Enter name"
+          />
+        </section>
+
+        <section class="form-group">
+          <div class="label-buttons">
+            <label for="developer">Developer</label>
+            <div class="buttons-container">
+              <button type="button" class="btn-add developer">Add</button>
+            </div>
+          </div>
+
+          <div class="select-container developer">
+            <% gameDevelopers.forEach((dev) => { %>
+            <div class="select-wrapper">
+              <select name="developer" id="developer">
+                <option value="" disabled selected>Select Developer</option>
+                <% developers.forEach((developer) => { %>
+                <option value="<%= developer.name %>" <%= developer.name === dev.name ? "selected" : "" %>>
+                  <%= developer.name %>
+                </option>
+                <% }); %>
+              </select>
+            </div>
+            <% }); %>
+          </div>
+        </section>
+
+        <section class="form-group">
+          <div class="label-buttons">
+            <label for="genre">Genre</label>
+            <div class="buttons-container">
+              <button type="button" class="btn-add genre">Add</button>
+            </div>
+          </div>
+
+          <div class="select-container genre">
+            <% gameGenres.forEach((gnr) => { %>
+            <div class="select-wrapper">
+              <select name="genre" id="genre">
+                <option value="" disabled selected>Select Genre</option>
+                <% genres.forEach((genre) => { %>
+                <option value="<%= genre.name %>" <%= genre.name === gnr.name ? "selected" : "" %>>
+                  <%= genre.name %> 
+                </option>
+                <% }); %>
+              </select>
+            </div>
+            <% }); %>
+          </div>
+        </section>
+
+        <section class="form-group">
+          <label for="stock">Stock</label>
+          <input
+            type="number"
+            name="stock"
+            id="stock"
+            min="0"
+            value="<%= stockValue %>"
+            required
+            placeholder="Enter stock"
+          />
+        </section>
+
+        <section class="button-group">
+          <a href="/games">Back</a>
+          <button type="submit">Save</button>
+        </section>
+      </form>
+    </main>
+
+    <%- include('../partials/footer.ejs') %>
+
+    <script>
+      function addDeveloperSelect() {
+        const selectContainer = document.querySelector(
+          ".select-container.developer"
+        );
+        const select = document.querySelector(
+          ".select-container.developer select"
+        );
+        const newSelectWrapper = document.createElement("div");
+        const newSelect = document.createElement("select");
+        const removeButton = document.createElement("button");
+
+        removeButton.type = "button";
+        removeButton.classList.add("btn-remove");
+        removeButton.textContent = "x";
+        removeButton.addEventListener("click", () =>
+          selectContainer.removeChild(newSelectWrapper)
+        );
+        newSelect.name = "developer";
+        newSelect.innerHTML = select.innerHTML;
+        newSelectWrapper.classList.add("select-wrapper");
+        newSelectWrapper.appendChild(newSelect);
+        newSelectWrapper.appendChild(removeButton);
+        selectContainer.appendChild(newSelectWrapper);
+      }
+
+      function addGenreSelect() {
+        const selectContainer = document.querySelector(
+          ".select-container.genre"
+        );
+        const select = document.querySelector(".select-container.genre select");
+        const newSelectWrapper = document.createElement("div");
+        const newSelect = document.createElement("select");
+        const removeButton = document.createElement("button");
+
+        removeButton.type = "button";
+        removeButton.classList.add("btn-remove");
+        removeButton.textContent = "x";
+        removeButton.addEventListener("click", () =>
+          selectContainer.removeChild(newSelectWrapper)
+        );
+        newSelect.name = "genre";
+        newSelect.innerHTML = select.innerHTML;
+        newSelectWrapper.classList.add("select-wrapper");
+        newSelectWrapper.appendChild(newSelect);
+        newSelectWrapper.appendChild(removeButton);
+        selectContainer.appendChild(newSelectWrapper);
+      }
+
+      const addDeveloperButton = document.querySelector(".btn-add.developer");
+      const addGenreButton = document.querySelector(".btn-add.genre");
+
+      addDeveloperButton.addEventListener("click", addDeveloperSelect);
+      addGenreButton.addEventListener("click", addGenreSelect);
+    </script>
+  </body>
+</html>

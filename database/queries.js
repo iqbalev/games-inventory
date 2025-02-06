@@ -13,21 +13,23 @@ export async function fetchAllGenres() {
 }
 
 export async function fetchAllGames() {
-  const { rows } = await pool.query(`
-    SELECT
-      games.id,
-      games.name,
-      games.stock,
-      ARRAY_AGG(DISTINCT developers.name) AS developer_names,
-      ARRAY_AGG(DISTINCT genres.name) AS genre_names
-    FROM games
-    JOIN game_developers ON games.id = game_developers.game_id
-    JOIN developers ON game_developers.developer_id = developers.id
-    JOIN game_genres ON games.id = game_genres.game_id
-    JOIN genres ON game_genres.genre_id = genres.id
-    GROUP BY games.id
-    ORDER BY games.name ASC
-  `);
+  const { rows } = await pool.query(
+    `
+      SELECT
+        games.id,
+        games.name,
+        games.stock,
+        ARRAY_AGG(DISTINCT developers.name) AS developer_names,
+        ARRAY_AGG(DISTINCT genres.name) AS genre_names
+      FROM games
+      JOIN game_developers ON games.id = game_developers.game_id
+      JOIN developers ON game_developers.developer_id = developers.id
+      JOIN game_genres ON games.id = game_genres.game_id
+      JOIN genres ON game_genres.genre_id = genres.id
+      GROUP BY games.id
+      ORDER BY games.name ASC
+    `
+  );
 
   return rows;
 }
@@ -78,24 +80,46 @@ export async function fetchGenreIdByName(name) {
   return null;
 }
 
+export async function fetchGameNameById(game_id) {
+  const { rows } = await pool.query("SELECT name FROM games WHERE id = $1", [
+    game_id,
+  ]);
+
+  if (rows.length > 0) {
+    return rows[0].name;
+  }
+  return null;
+}
+
+export async function fetchGameStockById(game_id) {
+  const { rows } = await pool.query("SELECT stock FROM games WHERE id = $1", [
+    game_id,
+  ]);
+
+  if (rows.length > 0) {
+    return rows[0].stock;
+  }
+  return null;
+}
+
 export async function fetchGamesByDeveloper(developer_id) {
   const { rows } = await pool.query(
     `
-    SELECT
-      games.id,
-      games.name,
-      games.stock,
-      ARRAY_AGG(DISTINCT developers.name) AS developer_names,
-      ARRAY_AGG(DISTINCT genres.name) AS genre_names
-    FROM games
-    JOIN game_developers ON games.id = game_developers.game_id
-    JOIN developers ON game_developers.developer_id = developers.id
-    JOIN game_genres ON games.id = game_genres.game_id
-    JOIN genres ON game_genres.genre_id = genres.id
-    WHERE developers.id = $1
-    GROUP BY games.id
-    ORDER BY games.name ASC
-  `,
+      SELECT
+        games.id,
+        games.name,
+        games.stock,
+        ARRAY_AGG(DISTINCT developers.name) AS developer_names,
+        ARRAY_AGG(DISTINCT genres.name) AS genre_names
+      FROM games
+      JOIN game_developers ON games.id = game_developers.game_id
+      JOIN developers ON game_developers.developer_id = developers.id
+      JOIN game_genres ON games.id = game_genres.game_id
+      JOIN genres ON game_genres.genre_id = genres.id
+      WHERE developers.id = $1
+      GROUP BY games.id
+      ORDER BY games.name ASC
+    `,
     [developer_id]
   );
 
@@ -105,22 +129,50 @@ export async function fetchGamesByDeveloper(developer_id) {
 export async function fetchGamesByGenre(genre_id) {
   const { rows } = await pool.query(
     `
-    SELECT
-      games.id,
-      games.name,
-      games.stock,
-      ARRAY_AGG(DISTINCT developers.name) AS developer_names,
-      ARRAY_AGG(DISTINCT genres.name) AS genre_names
-    FROM games
-    JOIN game_developers ON games.id = game_developers.game_id
-    JOIN developers ON game_developers.developer_id = developers.id
-    JOIN game_genres ON games.id = game_genres.game_id
-    JOIN genres ON game_genres.genre_id = genres.id
-    WHERE genres.id = $1
-    GROUP BY games.id
-    ORDER BY games.name ASC
-  `,
+      SELECT
+        games.id,
+        games.name,
+        games.stock,
+        ARRAY_AGG(DISTINCT developers.name) AS developer_names,
+        ARRAY_AGG(DISTINCT genres.name) AS genre_names
+      FROM games
+      JOIN game_developers ON games.id = game_developers.game_id
+      JOIN developers ON game_developers.developer_id = developers.id
+      JOIN game_genres ON games.id = game_genres.game_id
+      JOIN genres ON game_genres.genre_id = genres.id
+      WHERE genres.id = $1
+      GROUP BY games.id
+      ORDER BY games.name ASC
+    `,
     [genre_id]
+  );
+
+  return rows;
+}
+
+export async function fetchGameDevelopersById(game_id) {
+  const { rows } = await pool.query(
+    `
+      SELECT developers.name 
+      FROM game_developers
+      JOIN developers ON game_developers.developer_id = developers.id 
+      WHERE game_developers.game_id = $1
+    `,
+    [game_id]
+  );
+
+  return rows;
+}
+
+export async function fetchGameGenresById(game_id) {
+  const { rows } = await pool.query(
+    `
+      SELECT genres.name
+      FROM game_genres
+      JOIN genres ON game_genres.genre_id = genres.id
+      WHERE game_genres.game_id = $1
+    `,
+    [game_id]
   );
 
   return rows;
@@ -198,6 +250,14 @@ export async function updateGenre(name, genreId) {
   ]);
 }
 
+export async function updateGame(name, stock, game_id) {
+  await pool.query("UPDATE games SET name = $1, stock = $2 WHERE id = $3", [
+    name,
+    stock,
+    game_id,
+  ]);
+}
+
 export async function deleteDeveloperById(developer_id) {
   await pool.query("DELETE FROM developers WHERE id = $1", [developer_id]);
 }
@@ -208,4 +268,12 @@ export async function deleteGenreById(genre_id) {
 
 export async function deleteGameById(game_id) {
   await pool.query("DELETE FROM games WHERE id = $1", [game_id]);
+}
+
+export async function deleteGameDevelopers(game_id) {
+  await pool.query("DELETE FROM game_developers WHERE game_id = $1", [game_id]);
+}
+
+export async function deleteGameGenres(game_id) {
+  await pool.query("DELETE FROM game_genres WHERE game_id = $1", [game_id]);
 }

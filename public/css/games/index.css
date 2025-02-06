@@ -30,6 +30,10 @@ section a:hover {
   width: 400px;
 }
 
+.game-actions {
+  display: flex;
+}
+
 .btn-delete {
   border: 1px solid #6b7280;
   padding: 12px;

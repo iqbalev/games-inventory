@@ -27,9 +27,12 @@
             <p>Stock: <%= game.stock %></p>
           </article>
 
-          <form action="/games/<%= game.id %>?_method=DELETE" method="POST">
-            <button type="submit" class="btn-delete">Delete</button>
-          </form>
+          <div class="game-actions">
+            <form action="/games/<%= game.id %>?_method=DELETE" method="POST">
+              <button type="submit" class="btn-delete">Delete</button>
+            </form>
+            <a href="/games/<%= game.id %>/edit-game">Edit</a>
+          </div>
         </div>
         <% }); %>
       </section>
