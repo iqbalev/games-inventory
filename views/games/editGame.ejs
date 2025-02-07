@@ -35,7 +35,7 @@
           </div>
 
           <div class="select-container developer">
-            <% gameDevelopers.forEach((dev) => { %>
+            <% gameDevelopers.forEach((dev, index) => { %>
             <div class="select-wrapper">
               <select name="developer" id="developer">
                 <option value="" disabled selected>Select Developer</option>
@@ -45,6 +45,9 @@
                 </option>
                 <% }); %>
               </select>
+              <% if(index > 0) {%>
+                <button type="button" class="btn-remove">x</button>
+              <% } %>
             </div>
             <% }); %>
           </div>
@@ -59,7 +62,7 @@
           </div>
 
           <div class="select-container genre">
-            <% gameGenres.forEach((gnr) => { %>
+            <% gameGenres.forEach((gnr, index) => { %>
             <div class="select-wrapper">
               <select name="genre" id="genre">
                 <option value="" disabled selected>Select Genre</option>
@@ -69,6 +72,9 @@
                 </option>
                 <% }); %>
               </select>
+              <% if(index > 0) {%>
+                <button type="button" class="btn-remove">x</button>
+              <% } %>
             </div>
             <% }); %>
           </div>
@@ -111,9 +117,6 @@
         removeButton.type = "button";
         removeButton.classList.add("btn-remove");
         removeButton.textContent = "x";
-        removeButton.addEventListener("click", () =>
-          selectContainer.removeChild(newSelectWrapper)
-        );
         newSelect.name = "developer";
         newSelect.innerHTML = select.innerHTML;
         newSelectWrapper.classList.add("select-wrapper");
@@ -134,12 +137,9 @@
         removeButton.type = "button";
         removeButton.classList.add("btn-remove");
         removeButton.textContent = "x";
-        removeButton.addEventListener("click", () =>
-          selectContainer.removeChild(newSelectWrapper)
-        );
         newSelect.name = "genre";
         newSelect.innerHTML = select.innerHTML;
-        newSelectWrapper.classList.add("select-wrapper");
+        newSelectWrapper.classLisst.add("select-wrapper");
         newSelectWrapper.appendChild(newSelect);
         newSelectWrapper.appendChild(removeButton);
         selectContainer.appendChild(newSelectWrapper);
@@ -150,6 +150,12 @@
 
       addDeveloperButton.addEventListener("click", addDeveloperSelect);
       addGenreButton.addEventListener("click", addGenreSelect);
+
+      document.addEventListener("click", (e) => {
+        if(e.target.classList.contains("btn-remove")) {
+          e.target.parentElement.remove()
+        }
+      })
     </script>
   </body>
 </html>
