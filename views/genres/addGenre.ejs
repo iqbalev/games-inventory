@@ -11,9 +11,11 @@
     <%- include('../partials/header.ejs') %>
 
     <main>
-      <h2>Genre Details</h2>
+      <h2>Add Genre</h2>
 
       <form action="/genres/add-genre" method="POST">
+        <%- include("../partials/validationMessage.ejs", { errors }) %>
+
         <section class="form-group">
           <label for="name">Name</label>
           <input

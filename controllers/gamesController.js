@@ -19,16 +19,19 @@ import {
   deleteGameDevelopers,
   deleteGameGenres,
 } from "../database/queries.js";
+import { validationResult } from "express-validator";
 
 export const getIndex = asyncHandler(async (req, res) => {
   const games = await fetchAllGames();
+
   res.render("games/index", { heading: "Games", games });
 });
 
 export const getAddGame = asyncHandler(async (req, res) => {
   const developers = await fetchAllDevelopers();
   const genres = await fetchAllGenres();
-  res.render("games/addGame", { developers, genres });
+
+  res.render("games/addGame", { errors: [], developers, genres });
 });
 
 export const getEditGame = asyncHandler(async (req, res) => {
@@ -41,7 +44,9 @@ export const getEditGame = asyncHandler(async (req, res) => {
   const gameValue = await fetchGameNameById(gameId);
   const stockValue = await fetchGameStockById(gameId);
   const game = games.find((game) => game.id === Number(gameId));
+
   res.render("games/editGame", {
+    errors: [],
     game,
     developers,
     genres,
@@ -53,6 +58,16 @@ export const getEditGame = asyncHandler(async (req, res) => {
 });
 
 export const postAddGame = asyncHandler(async (req, res) => {
+  const errors = validationResult(req);
+  const developers = await fetchAllDevelopers();
+  const genres = await fetchAllGenres();
+
+  if (!errors.isEmpty()) {
+    return res
+      .status(404)
+      .render("games/addGame", { errors: errors.array(), developers, genres });
+  }
+
   const { name, stock } = req.body;
   let { developer, genre } = req.body;
 
@@ -84,11 +99,35 @@ export const postAddGame = asyncHandler(async (req, res) => {
       ", "
     )} | ${stock}`
   );
+
   return res.redirect("/games/add-game");
 });
 
 export const putEditGame = asyncHandler(async (req, res) => {
+  const errors = validationResult(req);
   const { gameId } = req.params;
+  const games = await fetchAllGames();
+  const gameDevelopers = await fetchGameDevelopersById(gameId);
+  const gameGenres = await fetchGameGenresById(gameId);
+  const developers = await fetchAllDevelopers();
+  const genres = await fetchAllGenres();
+  const gameValue = await fetchGameNameById(gameId);
+  const stockValue = await fetchGameStockById(gameId);
+  const game = games.find((game) => game.id === Number(gameId));
+
+  if (!errors.isEmpty()) {
+    return res.status(400).render("games/editGame", {
+      errors: errors.array(),
+      game,
+      developers,
+      genres,
+      gameValue,
+      stockValue,
+      gameDevelopers,
+      gameGenres,
+    });
+  }
+
   const { name, stock } = req.body;
   let { developer, genre } = req.body;
 
@@ -123,11 +162,13 @@ export const putEditGame = asyncHandler(async (req, res) => {
       ", "
     )} | ${stock}`
   );
+
   res.redirect("/games");
 });
 
 export const deleteGame = asyncHandler(async (req, res) => {
   const { gameId } = req.params;
   await deleteGameById(gameId);
+
   return res.redirect("/games");
 });

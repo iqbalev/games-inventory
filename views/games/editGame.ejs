@@ -14,6 +14,8 @@
       <h2>Edit Game</h2>
 
       <form action="/games/<%= game.id %>/edit-game?_method=PUT" method="POST">
+        <%- include("../partials/validationMessage.ejs", { errors }) %>
+
         <section class="form-group">
           <label for="name">Name</label>
           <input
@@ -139,7 +141,7 @@
         removeButton.textContent = "x";
         newSelect.name = "genre";
         newSelect.innerHTML = select.innerHTML;
-        newSelectWrapper.classLisst.add("select-wrapper");
+        newSelectWrapper.classList.add("select-wrapper");
         newSelectWrapper.appendChild(newSelect);
         newSelectWrapper.appendChild(removeButton);
         selectContainer.appendChild(newSelectWrapper);

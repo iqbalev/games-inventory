@@ -71,6 +71,18 @@ footer {
   display: flex;
 }
 
+.validation-message-list {
+  display: flex;
+  flex-direction: column;
+  background-color: #9f0712;
+  padding: 12px;
+}
+
+.validation-message-list li {
+  font-size: 0.8rem;
+  color: #d1d5db;
+}
+
 footer p {
   padding: 12px;
 }

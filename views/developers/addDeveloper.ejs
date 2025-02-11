@@ -11,9 +11,11 @@
     <%- include('../partials/header.ejs') %>
 
     <main>
-      <h2>Developer Details</h2>
+      <h2>Add Developer</h2>
 
       <form action="/developers/add-developer" method="POST">
+        <%- include("../partials/validationMessage.ejs", { errors }) %>
+
         <section class="form-group">
           <label for="name">Name</label>
           <input

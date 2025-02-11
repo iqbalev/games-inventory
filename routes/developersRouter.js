@@ -7,6 +7,7 @@ import {
   putEditDeveloper,
   deleteDeveloper,
 } from "../controllers/developersController.js";
+import { validateDeveloperInput } from "../middlewares/inputValidation.js";
 
 const developersRouter = Router();
 
@@ -15,9 +16,17 @@ developersRouter.get("/add-developer", getAddDeveloper);
 developersRouter.get("/:developerId", getIndex);
 developersRouter.get("/", getIndex);
 
-developersRouter.post("/add-developer", postAddDeveloper);
+developersRouter.post(
+  "/add-developer",
+  validateDeveloperInput,
+  postAddDeveloper
+);
 
-developersRouter.put("/:developerId/edit-developer", putEditDeveloper);
+developersRouter.put(
+  "/:developerId/edit-developer",
+  validateDeveloperInput,
+  putEditDeveloper
+);
 
 developersRouter.delete("/:developerId", deleteDeveloper);
 

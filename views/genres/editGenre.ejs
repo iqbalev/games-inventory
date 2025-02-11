@@ -11,12 +11,14 @@
     <%- include('../partials/header.ejs') %>
 
     <main>
-      <h2>Edit Genre Details</h2>
+      <h2>Edit Genre</h2>
 
       <form
         action="/genres/<%= genre.id %>/edit-genre?_method=PUT"
         method="POST"
       >
+        <%- include("../partials/validationMessage.ejs", { errors }) %>
+
         <section class="form-group">
           <label for="name">Name</label>
           <input
