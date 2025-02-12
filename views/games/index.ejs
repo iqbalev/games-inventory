@@ -13,7 +13,18 @@
     <main>
       <section class="games-header">
         <h2><%= heading %></h2>
-        <a href="/games/add-game" class="btn-add">+</a>
+
+        <div class="add-search">
+          <a href="/games/add-game" class="btn-add">+</a>
+
+          <input
+            type="search"
+            name="search"
+            id="search"
+            placeholder="Type game name"
+            class="search"
+          />
+        </div>
       </section>
 
       <section class="games-container">
@@ -42,5 +53,41 @@
     </main>
 
     <%- include('../partials/footer.ejs') %>
+
+    <script>
+      const search = document.querySelector(".search");
+      search.addEventListener("input", (event) => {
+        const searchQuery = event.target.value.trim().toLowerCase();
+        const gamesContainer = document.querySelector(".games-container");
+        const gameCards = document.querySelectorAll(".game-card");
+
+        const currentNoResultMessage =
+          gamesContainer.querySelector(".no-result-message");
+
+        if (currentNoResultMessage) currentNoResultMessage.remove();
+
+        let hasVisibleGame = false;
+
+        gameCards.forEach((card) => {
+          const gameName = card.querySelector(".game-name");
+
+          if (gameName.textContent.toLowerCase().includes(searchQuery)) {
+            card.style.display = "flex";
+            hasVisibleGame = true;
+          } else {
+            card.style.display = "none";
+          }
+        });
+
+        if (!hasVisibleGame) {
+          const noResultMessage = document.createElement("p");
+          noResultMessage.classList.add("no-result-message");
+          noResultMessage.textContent =
+            "No result found. Please try again with different keyword.";
+
+          gamesContainer.appendChild(noResultMessage);
+        }
+      });
+    </script>
   </body>
 </html>

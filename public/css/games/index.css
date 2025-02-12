@@ -10,6 +10,11 @@ main {
   align-items: center;
 }
 
+.add-search {
+  display: flex;
+  gap: 10px;
+}
+
 .btn-add {
   padding: 6px 12px;
   border: 1px solid #6b7280;
@@ -22,10 +27,22 @@ main {
   box-shadow: 2px 2px #93c5fd;
 }
 
+.search {
+  padding: 6px 12px;
+  border: 1px solid #6b7280;
+  box-shadow: 2px 2px #6b7280;
+  background-color: transparent;
+}
+
 .games-container {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 20px;
+}
+
+.games-container:has(.no-result-message) {
+  display: grid;
+  grid-template-columns: 1fr;
 }
 
 .game-card {
@@ -84,6 +101,17 @@ main {
 }
 
 @media screen and (max-width: 480px) {
+  .games-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .add-search {
+    justify-content: flex-end;
+    width: 100%;
+  }
+
   .games-container {
     grid-template-columns: 1fr;
   }
