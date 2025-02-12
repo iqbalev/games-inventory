@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Developers: Games Inventory</title>
+    <title>Games Inventory | Developers</title>
     <link rel="stylesheet" href="/css/global.css" />
     <link rel="stylesheet" href="/css/developers/index.css" />
   </head>
@@ -12,40 +12,50 @@
 
     <main>
       <aside class="sidebar">
-        <h2><%= heading %></h2>
+        <section class="developers-header">
+          <h2><%= heading %></h2>
+          <a href="/developers/add-developer" class="btn-add">+</a>
+        </section>
+
         <ul class="developer-list">
           <% developers.forEach((developer) => { %>
-          <li>
+          <li class="developer-items">
             <a href="/developers/<%= developer.id %>"><%= developer.name %></a>
+
             <div class="developer-actions">
+              <a
+                href="/developers/<%= developer.id %>/edit-developer"
+                class="btn-edit"
+                >Edit</a
+              >
+
               <form
                 action="/developers/<%= developer.id %>?_method=DELETE"
                 method="POST"
               >
                 <button type="submit" class="btn-delete">Delete</button>
               </form>
-              <a
-                class="edit-link"
-                href="/developers/<%= developer.id %>/edit-developer"
-                >Edit</a
-              >
             </div>
           </li>
           <% }); %>
         </ul>
-        <a class="add-link" href="/developers/add-developer">+ Developer</a>
       </aside>
 
       <section class="developer-games">
+        <h3>Registered Games</h3>
+
         <% if(!developerGames || developerGames.length === 0) { %>
-        <article class="game-card">
-          <p>Click on a developer to see the list.</p>
+        <article class="empty-game-card">
+          <p>No games found for this developer.</p>
         </article>
+
         <% } else { %> <% developerGames.forEach((game) => { %>
         <article class="game-card">
-          <p><%= game.name %></p>
-          <p>Genre: <%= game.genre_names.join(", ") %></p>
-          <p>Stock: <%= game.stock %></p>
+          <p class="game-name"><%= game.name %></p>
+          <p class="game-genre">
+            <span>Genre</span>: <%= game.genre_names.join(", ") %>
+          </p>
+          <p class="game-stock"><span>Stock</span>: <%= game.stock %></p>
         </article>
         <% }); %> <% } %>
       </section>

@@ -1,44 +1,118 @@
 main {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
   gap: 20px;
 }
 
 .sidebar {
   display: flex;
   flex-direction: column;
+  gap: 20px;
 }
 
-li {
+.developers-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.btn-add {
+  padding: 6px 12px;
+  border: 1px solid #6b7280;
+  box-shadow: 2px 2px #6b7280;
+}
+
+.btn-add:hover {
+  color: #93c5fd;
+  border-color: #93c5fd;
+  box-shadow: 2px 2px #93c5fd;
+}
+
+.developer-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.developer-items {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 10px;
+}
+
+.developer-items a:hover {
+  color: #93c5fd;
 }
 
 .developer-actions {
   display: flex;
+  gap: 10px;
+  align-items: center;
 }
 
-.add-link,
-.edit-link,
+.btn-edit,
 .btn-delete {
+  font-size: 0.8rem;
+  padding: 6px 12px;
   border: 1px solid #6b7280;
-  padding: 12px;
-  text-align: center;
+  box-shadow: 2px 2px #6b7280;
 }
 
-.add-link:hover,
-.edit-link:hover,
+.btn-edit:hover,
 .btn-delete:hover {
   color: #93c5fd;
   border-color: #93c5fd;
+  box-shadow: 2px 2px #93c5fd;
 }
 
 .developer-games {
+  display: grid;
+  gap: 20px;
+  border-left: 1px solid #6b7280;
+  padding-left: 20px;
+}
+
+.developer-games h3 {
+  color: #93c5fd;
+  text-align: center;
+}
+
+.empty-game-card {
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .game-card {
   display: flex;
   flex-direction: column;
+  border: 1px solid #6b7280;
+  box-shadow: 2px 2px #6b7280;
+  padding: 20px;
+  align-self: flex-start;
+}
+
+.game-name {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #93c5fd;
+  padding-bottom: 2px;
+}
+
+.game-genre span,
+.game-stock span {
+  font-weight: 600;
+}
+
+/* TODO */
+@media screen and (max-width: 480px) {
+  main {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .developer-games {
+    border-left: initial;
+    padding-left: initial;
+  }
 }

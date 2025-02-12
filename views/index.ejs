@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Home: Games Inventory</title>
     <link rel="stylesheet" href="/css/global.css" />
+    <link rel="stylesheet" href="/css/index.css" />
   </head>
   <body>
     <%- include('partials/header.ejs') %>
@@ -12,11 +13,22 @@
     <main>
       <h2><%= heading %></h2>
 
-      <section>
-        <p>Total Games: <%= totalGames %></p>
-        <p>Total Genres: <%= totalGenres %></p>
-        <p>Total Developers: <%= totalDevelopers %></p>
-      </section>
+      <ul class="overview-list">
+        <li>
+          <span>Registered Games:</span>
+          <span><%= totalGames %></span>
+        </li>
+
+        <li>
+          <span>Registered Genres:</span>
+          <span><%= totalGenres %></span>
+        </li>
+
+        <li>
+          <span>Registered Developers:</span>
+          <span><%= totalDevelopers %></span>
+        </li>
+      </ul>
     </main>
 
     <%- include('partials/footer.ejs') %>

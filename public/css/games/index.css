@@ -4,37 +4,87 @@ main {
   gap: 20px;
 }
 
-section a {
-  background-color: transparent;
-  border: 1px solid #6b7280;
-  padding: 12px;
-  text-align: center;
+.games-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-section a:hover {
+.btn-add {
+  padding: 6px 12px;
+  border: 1px solid #6b7280;
+  box-shadow: 2px 2px #6b7280;
+}
+
+.btn-add:hover {
   color: #93c5fd;
   border-color: #93c5fd;
+  box-shadow: 2px 2px #93c5fd;
 }
 
 .games-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.game-card {
   display: flex;
   flex-direction: column;
+  border: 1px solid #6b7280;
+  box-shadow: 2px 2px #6b7280;
+  padding: 20px;
   gap: 10px;
+  justify-content: space-between;
 }
 
 .game-information {
   display: flex;
   flex-direction: column;
-  border: 1px solid #6b7280;
-  padding: 12px;
-  width: 400px;
+}
+
+.game-name {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #93c5fd;
+  padding-bottom: 2px;
+}
+
+.game-developer span,
+.game-genre span,
+.game-stock span {
+  font-weight: 600;
 }
 
 .game-actions {
   display: flex;
+  justify-content: flex-end;
+  gap: 10px;
 }
 
-.btn-delete {
+.btn-delete,
+.btn-edit {
+  padding: 6px 12px;
   border: 1px solid #6b7280;
-  padding: 12px;
+  box-shadow: 2px 2px #6b7280;
+}
+
+.btn-delete:hover,
+.btn-edit:hover {
+  color: #93c5fd;
+  border-color: #93c5fd;
+  box-shadow: 2px 2px #93c5fd;
+}
+
+/* TODO */
+@media screen and (max-width: 640px) {
+  .games-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .games-container {
+    grid-template-columns: 1fr;
+  }
 }

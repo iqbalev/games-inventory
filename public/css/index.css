@@ -1,0 +1,16 @@
+main {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.overview-list {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+}
+
+.overview-list li {
+  font-size: 1.2rem;
+}

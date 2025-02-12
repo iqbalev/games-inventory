@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Games: Games Inventory</title>
+    <title>Games Inventory | Games</title>
     <link rel="stylesheet" href="/css/global.css" />
     <link rel="stylesheet" href="/css/games/index.css" />
   </head>
@@ -11,27 +11,30 @@
     <%- include('../partials/header.ejs') %>
 
     <main>
-      <h2><%= heading %></h2>
-
-      <section>
-        <a href="/games/add-game">+ Game</a>
+      <section class="games-header">
+        <h2><%= heading %></h2>
+        <a href="/games/add-game" class="btn-add">+</a>
       </section>
 
       <section class="games-container">
         <% games.forEach((game) => { %>
-        <div>
+        <div class="game-card">
           <article class="game-information">
-            <p><%= game.name %></p>
-            <p>Developer: <%= game.developer_names.join(", ") %></p>
-            <p>Genre: <%= game.genre_names.join(", ") %></p>
-            <p>Stock: <%= game.stock %></p>
+            <p class="game-name"><%= game.name %></p>
+            <p class="game-developer">
+              <span>Developer</span>: <%= game.developer_names.join(", ") %>
+            </p>
+            <p class="game-genre">
+              <span>Genre</span>: <%= game.genre_names.join(", ") %>
+            </p>
+            <p class="game-stock"><span>Stock</span>: <%= game.stock %></p>
           </article>
 
           <div class="game-actions">
+            <a href="/games/<%= game.id %>/edit-game" class="btn-edit">Edit</a>
             <form action="/games/<%= game.id %>?_method=DELETE" method="POST">
               <button type="submit" class="btn-delete">Delete</button>
             </form>
-            <a href="/games/<%= game.id %>/edit-game">Edit</a>
           </div>
         </div>
         <% }); %>

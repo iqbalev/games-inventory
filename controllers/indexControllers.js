@@ -15,7 +15,7 @@ export const getIndex = asyncHandler(async (req, res) => {
   console.log("Total Games:", totalGames);
 
   res.render("index", {
-    heading: "Home",
+    heading: "Overview",
     totalDevelopers,
     totalGenres,
     totalGames,
